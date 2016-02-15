@@ -18,67 +18,68 @@ search: true
 
 # Introduction
 
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
+Welcome to the ShipSticks API! You can use our API to access ShipSticks API endpoints, which can get information on users, shipments, etc., in our database.
 
-We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
+We have language bindings in Shell, Ruby and Python . You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
 
-This example API documentation page was created with [Slate](https://github.com/tripit/slate). Feel free to edit it and use it as a base for your own API's documentation.
 
 # Authentication
 
 > To authorize, use this code:
 
 ```ruby
-require 'kittn'
+require 'shipsticks'
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
+api = ShipSticks::APIClient.authorize!('API-KEY')
 ```
 
 ```python
-import kittn
+import shipsticks
 
-api = kittn.authorize('meowmeowmeow')
+api = shipsticks.authorize('shipsticks')
 ```
 
 ```shell
 # With shell, you can just pass the correct header with each request
 curl "api_endpoint_here"
-  -H "Authorization: meowmeowmeow"
+  -H "Authorization: API-KEY"
 ```
 
-> Make sure to replace `meowmeowmeow` with your API key.
+> Make sure to replace `API-KEY` with your API key.
 
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
+ShipSticks uses API keys to allow access to the API. You can register a new ShipSticks API key at our [developer portal](http://example.com/developers).
 
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
+ShipSticks expects for the API key to be included in all API requests to the server in a header that looks like the following:
 
-`Authorization: meowmeowmeow`
+`Authorization: API-KEY`
 
 <aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
+You must replace <code>API-KEY</code> with your personal API key.
 </aside>
 
-# Kittens
+# Users
 
-## Get All Kittens
+The API allows you to create, retrieve, and update your users. You can retrieve individual users as well as a list of all your users.
+
+## Get All Users
 
 ```ruby
-require 'kittn'
+require 'shipsticks'
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
+api = ShipSticks::APIClient.authorize!('API-KEY')
+api.users.get
 ```
 
 ```python
-import kittn
+import shipsticks
 
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
+api = shipsticks.authorize('API-KEY')
+api.users.get()
 ```
 
 ```shell
-curl "http://example.com/api/kittens"
-  -H "Authorization: meowmeowmeow"
+curl "https://shipsticks.com/api/beta/users"
+  -H "Authorization: API-KEY"
 ```
 
 > The above command returns JSON structured like this:
@@ -86,83 +87,118 @@ curl "http://example.com/api/kittens"
 ```json
 [
   {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
+    "id": "56c201211200c1a03000000c",
+    "first_name": "John",
+    "last_name": "Doe",
+    "email": "john@shipsticks.com",
+    "phone_number": "5613336666"
   },
   {
-    "id": 2,
-    "name": "Max",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
+    "id": "56c201289200c2b03000000f",
+    "first_name": "Jane",
+    "last_name": "Doe",
+    "email": "jane@shipsticks.com",
+    "phone_number": "9542227777"
   }
 ]
 ```
 
-This endpoint retrieves all kittens.
+This endpoint retrieves all users.
 
 ### HTTP Request
 
-`GET http://example.com/api/kittens`
+`GET https://shipsticks.com/api/beta/users`
 
-### Query Parameters
 
-Parameter | Default | Description
---------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
-
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
-
-## Get a Specific Kitten
+## Get a Specific User by ID
 
 ```ruby
-require 'kittn'
+require 'shipsticks'
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
+api = ShipSticks::APIClient.authorize!('API-KEY')
+api.users.get("56c201289200c2b03000000f")
 ```
 
 ```python
-import kittn
+import shipsticks
 
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
+api = shipsticks.authorize('API-KEY')
+api.users.get("56c201289200c2b03000000f")
 ```
 
 ```shell
-curl "http://example.com/api/kittens/2"
-  -H "Authorization: meowmeowmeow"
+curl "https://shipsticks.com/api/beta/users/56c201289200c2b03000000f"
+  -H "Authorization: API-KEY"
 ```
 
 > The above command returns JSON structured like this:
 
 ```json
 {
-  "id": 2,
-  "name": "Max",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
+  "id": "56c201289200c2b03000000f",
+  "first_name": "Jane",
+  "last_name": "Doe",
+  "email": "jane@shipsticks.com",
+  "phone_number": "9542227777"
 }
 ```
 
-This endpoint retrieves a specific kitten.
-
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
+This endpoint retrieves a specific user.
 
 ### HTTP Request
 
-`GET http://example.com/kittens/<ID>`
+`GET https://shipsticks.com/api/beta/users/<ID>`
 
 ### URL Parameters
 
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to retrieve
+Parameter | Required | Description
+--------- | -------- | -----------
+`id` | `true` | The `id` of the user to retrieve
+
+
+## Get a Specific User by Email
+
+```ruby
+require 'shipsticks'
+
+api = ShipSticks::APIClient.authorize!('API-KEY')
+api.users.search("jane@shipsticks.com")
+```
+
+```python
+import shipsticks
+
+api = shipsticks.authorize('API-KEY')
+api.users.search("jane@shipsticks.com")
+```
+
+```shell
+curl "https://shipsticks.com/api/beta/search/users/?email=jane@shipsticks.com"
+  -H "Authorization: API-KEY"
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "id": "56c201289200c2b03000000f",
+  "first_name": "Jane",
+  "last_name": "Doe",
+  "email": "jane@shipsticks.com",
+  "phone_number": "9542227777"
+}
+```
+
+This endpoint retrieves a specific user.
+
+
+### HTTP Request
+
+`GET https://shipsticks.com/api/beta/search/users/?email=<EMAIL>`
+
+### URL Parameters
+
+Parameter | Required | Description
+--------- | -------- | -----------
+`email` | `true` | The `email` of the user to retrieve
 
