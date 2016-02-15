@@ -8,7 +8,6 @@ language_tabs:
 
 toc_footers:
   - <a href='#'>Sign Up for a Developer Key</a>
-  - <a href='https://github.com/tripit/slate'>Documentation Powered by Slate</a>
 
 includes:
   - errors
@@ -201,4 +200,132 @@ This endpoint retrieves a specific user.
 Parameter | Required | Description
 --------- | -------- | -----------
 `email` | `true` | The `email` of the user to retrieve
+
+
+## Create a User
+
+```ruby
+require 'shipsticks'
+
+api = ShipSticks::APIClient.authorize!('API-KEY')
+api.users.create(
+  user: {
+    first_name: "Geoff",
+    last_name: "Skoch",
+    email: "geoff@shipsticks.com",
+    phone_number: "5614440000"
+  }
+)
+```
+
+```python
+import shipsticks
+
+api = shipsticks.authorize('API-KEY')
+api.users.create()
+```
+
+```shell
+curl -X POST -H "Authorization: API-KEY"
+  -d '{
+    "user": {
+      "first_name": "Geoff",
+      "last_name": "Skoch",
+      "email": "geoff@shipsticks.com",
+      "phone_number": "5614440000"
+    }
+  }' "http://shipsticks.com/api/beta/users/"
+}'
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "id": "56c201289200c2b03000000k",
+  "first_name": "Geoff",
+  "last_name": "Skoch",
+  "email": "geoff@shipsticks.com",
+  "phone_number": "5614440000"
+}
+```
+
+This endpoint retrieves a specific user.
+
+
+### HTTP Request
+
+`POST https://shipsticks.com/api/beta/search/users/`
+
+### URL Parameters
+
+Parameter | Required | Description
+--------- | -------- | -----------
+`first_name` | `true` | The `first name` of the user to retrieve
+`last_name` | `true` | The `last name` of the user to retrieve
+`email` | `true` | The `email` of the user to retrieve
+`phone_number` | `false` | The `phone number` of the user to retrieve
+
+
+## Update a User
+
+```ruby
+require 'shipsticks'
+
+api = ShipSticks::APIClient.authorize!('API-KEY')
+api.users.update(
+  {
+    id: "56c201289200c2b03000000k",
+    user: {
+      first_name: "Nick"
+    }
+  }
+)
+```
+
+```python
+import shipsticks
+
+api = shipsticks.authorize('API-KEY')
+api.users.update()
+```
+
+```shell
+curl -X PUT -H "Authorization: API-KEY"
+  -d '{
+    "user": {
+      "first_name": "Nick"
+    }
+  }' "http://shipsticks.com/api/beta/users/56c201289200c2b03000000k"
+}'
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "id": "56c201289200c2b03000000k",
+  "first_name": "Nick",
+  "last_name": "Skoch",
+  "email": "geoff@shipsticks.com",
+  "phone_number": "5614440000"
+}
+```
+
+This endpoint retrieves a specific user.
+
+
+### HTTP Request
+
+`PUT https://shipsticks.com/api/beta/search/users/<ID>`
+
+### URL Parameters
+
+Parameter | Required | Description
+--------- | -------- | -----------
+`id` | `true` | The `id` of the user to retrieve
+`first_name` | `false` | The `first name` of the user to retrieve
+`last_name` | `false` | The `last name` of the user to retrieve
+`email` | `false` | The `email` of the user to retrieve
+`phone_number` | `false` | The `phone number` of the user to retrieve
 
